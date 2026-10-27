@@ -139,6 +139,10 @@ body { background:#000; overflow:hidden; font-family:Arial,sans-serif; color:#ff
 #tLeanR { bottom:110px; left:106px; }
 #tJump  { bottom:90px; right:110px; width:86px; height:86px; font-size:1.8rem; }
 #tTrick { bottom:20px; right:20px; }
+
+/* Link to the separate racing game; BMX gameplay stays unchanged. */
+.night-drive-link{display:inline-block;margin-top:18px;padding:11px 18px;border:1px solid #d5ff69;border-radius:8px;background:#172016;color:#d5ff69;font:bold 14px Arial,sans-serif;text-decoration:none;letter-spacing:0}
+.night-drive-link:hover,.night-drive-link:focus-visible{background:#d5ff69;color:#172016}
 </style>
 </head>
 <body>
@@ -157,6 +161,7 @@ body { background:#000; overflow:hidden; font-family:Arial,sans-serif; color:#ff
     <button class="auth-btn" id="authSubmit" onclick="authSubmit()">LOGGA IN</button>
     <button class="auth-btn sec" onclick="authGuest()">SPELA SOM GÄST</button>
     <div class="auth-msg" id="authMsg"></div>
+    <a class="night-drive-link" href="./bilspel/">🚗 Spela Max Night Drive →</a>
     <div class="auth-toggle" id="authToggle" onclick="toggleAuthMode()">HAR INGET KONTO? REGISTRERA DIG</div>
     <div class="auth-toggle" id="forgotLink" onclick="forgotPassword()" style="margin-top:6px;color:#e8c840;opacity:0.5">GLÖMT LÖSENORDET?</div>
   </div>
@@ -206,6 +211,7 @@ body { background:#000; overflow:hidden; font-family:Arial,sans-serif; color:#ff
     <button class="btn" id="sb" onclick="openLevelScreen()">KÖR</button>
     <button class="btn gray" id="shopBtn" onclick="openShop()">🛒 SHOP</button>
   </div>
+  <a class="night-drive-link" href="./bilspel/">🚗 Spela Max Night Drive →</a>
   <div class="hints" id="ovHints">
     <span>← → GAS/BROMS</span><span>↑ HOPPA</span><span>A/D LUTA</span><span>SPACE TRICK</span>
   </div>
