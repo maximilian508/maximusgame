@@ -41,7 +41,7 @@ function onTilt(e){
  const roll=Math.asin(Math.max(-1,Math.min(1,side)))*180/Math.PI;
  if(tiltNeutral===null){tiltNeutral=roll;tiltInput=0;tiltStatus('Luta vänster eller höger för att svänga. Centrera återställer rak styrning.')}
  const delta=roll-tiltNeutral;
- tiltInput=Math.abs(delta)<=2?0:Math.sign(delta)*Math.min(1,(Math.abs(delta)-2)/20);
+ tiltInput=Math.abs(delta)<=2?0:Math.sign(delta)*Math.min(1,(Math.abs(delta)-2)/40);
 }
 async function enableTilt(){
  if(tiltPending)return;if(tiltEnabled){disableTilt();return}
