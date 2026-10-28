@@ -288,7 +288,7 @@ function vehicle(x,bottom,s,col,own=false,modelId='gt',c=ctx){
  const family=models.find(m=>m.id===modelId)?.family||'coupe';modelId=({roadster:'starter',coupe:'rally',rx7:'rally',sedan:'gt',gtr:'gt',supra:'gt',nsx:'hyper',italia:'hyper',wedge:'hyper',porsche:'rally'})[family]||'gt';
  const shape={starter:{w:88,h:70,roof:.36,wing:false},rally:{w:94,h:68,roof:.38,wing:true},gt:{w:105,h:61,roof:.34,wing:false},hyper:{w:116,h:54,roof:.30,wing:true}}[modelId]||{w:98,h:63,roof:.34,wing:false};
  const w=shape.w,h=shape.h;
- c.save();c.translate(x,bottom);c.scale(s,s);
+ c.save();c.translate(x,bottom);if(own)c.rotate(vehicleLean());c.scale(s,s);
  const path=(points,fill,stroke)=>{c.beginPath();points.forEach((p,i)=>i?c.lineTo(...p):c.moveTo(...p));c.closePath();c.fillStyle=fill;c.fill();if(stroke){c.strokeStyle=stroke;c.lineWidth=.7;c.stroke()}};
  const box=(x,y,w,h,r,fill)=>{c.fillStyle=fill;c.beginPath();c.roundRect(x,y,w,h,r);c.fill()};
  const shadow=c.createRadialGradient(0,0,2,0,0,w*.7);shadow.addColorStop(0,'#000c');shadow.addColorStop(1,'#0000');c.save();c.scale(1,.22);c.fillStyle=shadow;c.fillRect(-w,-w,w*2,w*2);c.restore();
