@@ -127,7 +127,7 @@ class Race{
 
  for(const root of this.scenery){const d=root.metadata,z=((d.index*19-s.distance)%760+760)%760-35,m=s.distance+z;root.position=V(this.center(m,s)+d.side*d.offset,0,z)}
  const playerKey=s.id+s.paint;if(this.playerKey!==playerKey){if(this.player)this.player.dispose(false,true);this.player=new B.TransformNode(s.id,this.scene);this.player.metadata={model:s.id};this.playerKey=playerKey;this.player.getChildMeshes().forEach(x=>this.shadow.addShadowCaster(x));this.makeLamborghini(this.player,s,s.id,s.paint)}
- this.player.position=V(s.player,0,0);this.player.rotation.y=0;this.player.rotation.z=-Math.sin(s.elapsed*1.1)*.001;this.player.setEnabled(s.invulnerable<=0||Math.floor(s.invulnerable*12)%2===0||s.state==='menu');if(this.player.metadata.brakes)this.player.metadata.brakes.emissiveColor=C('#e50d25').scale(s.brake?3:.7);
+ this.player.position=V(s.player,0,0);this.player.rotation.y=Math.max(-.3,Math.min(.3,-(s.slip||0)*.65));this.player.rotation.z=-Math.sin(s.elapsed*1.1)*.001;this.player.setEnabled(s.invulnerable<=0||Math.floor(s.invulnerable*12)%2===0||s.state==='menu');if(this.player.metadata.brakes)this.player.metadata.brakes.emissiveColor=C('#e50d25').scale(s.brake?3:.7);
  this.updateRocketBoost(s);
  for(const w of this.player.metadata.wheels||[])w.rotation.x=s.distance/.335;this.updateDamage(this.player,s.state==='menu'?0:s.damage??0);
  const alive=new Set();for(const o of s.cars){if(o.z< -18||o.z>430)continue;alive.add(o.key);let r=this.vehicles.get(o.key);if(!r){r=new B.TransformNode(o.id,this.scene);r.metadata={model:o.id};this.makeLamborghini(r,s,o.id,o.paint);this.vehicles.set(o.key,r);r.getChildMeshes().forEach(x=>this.shadow.addShadowCaster(x));if(o.rival){const tex=new B.DynamicTexture('rival health',{width:256,height:64},this.scene,false),mat=new B.StandardMaterial('health',this.scene);mat.diffuseTexture=tex;mat.emissiveColor=B.Color3.White();mat.diffuseTexture.hasAlpha=true;mat.useAlphaFromDiffuseTexture=true;mat.disableLighting=true;const sign=B.MeshBuilder.CreatePlane('rival hearts',{width:2,height:.5},this.scene);sign.position.y=1.9;sign.parent=r;sign.billboardMode=B.Mesh.BILLBOARDMODE_ALL;sign.material=mat;r.metadata.healthTexture=tex}}
@@ -135,6 +135,7 @@ class Race{
  for(const [key,r]of this.vehicles)if(!alive.has(key)){r.dispose(false,true);this.vehicles.delete(key)}
  if(!this.player.getChildMeshes().some(n=>n.name==='car photograph'))this.makeLamborghini(this.player,s,s.id,s.paint);
  window.NightDriveEffects?.updateRollingTyres(this.player,s.distance,s.state==='running');for(const o of s.cars){const root=this.vehicles.get(o.key);if(root)window.NightDriveEffects?.updateRollingTyres(root,s.distance+o.z,s.state==='running')}
+ this.updateDriftSmoke(s);
  const cameraPose=chaseCameraPose(s,(m,state)=>this.center(m,state));this.camera.position.copyFrom(cameraPose.position);this.camera.setTarget(cameraPose.target);this.scene.render();this.original.style.visibility='hidden';
  }
  makeLamborghini(root,s,id,paint){const sprite=s.photoView(id,paint,1);if(!sprite)return;const tex=new B.DynamicTexture('car image '+id,{width:sprite.width,height:sprite.height},this.scene,false);tex.getContext().drawImage(sprite,0,0);tex.update();root.metadata.imageTexture=tex;root.metadata.imageSource=sprite;root.metadata.damageDrawn=0;tex.hasAlpha=true;const mat=new B.StandardMaterial('car photograph '+id,this.scene);mat.diffuseTexture=tex;mat.emissiveColor=B.Color3.White();mat.disableLighting=true;mat.useAlphaFromDiffuseTexture=true;mat.backFaceCulling=false;const w=specs[id].w,h=w*sprite.height/sprite.width;const plane=B.MeshBuilder.CreatePlane('car photograph',{width:w,height:h},this.scene);plane.parent=root;plane.position=V(0,h/2+.06,-specs[id].l/2);plane.rotation.y=Math.PI;plane.material=mat;window.NightDriveEffects?.attachRollingTyres(root,sprite,plane,B);
@@ -153,10 +154,22 @@ class Race{
   this.tunnelLights.forEach(l=>l.setEnabled(false));this.headlight.setEnabled(false);
   const playerKey=s.id+s.paint;if(this.playerKey!==playerKey){if(this.player)this.player.dispose(false,true);this.player=new B.TransformNode(s.id,this.scene);this.player.metadata={model:s.id};this.playerKey=playerKey}
   if(!this.player.getChildMeshes().some(n=>n.name==='car photograph'))this.makeLamborghini(this.player,s,s.id,s.paint);
-  const own=ringPoint(0,s.player);this.player.position=V(own.x,own.y,own.z);this.player.rotation=V(0,0,-RING_BANK);this.player.setEnabled(s.invulnerable<=0||Math.floor(s.invulnerable*12)%2===0||s.state==='menu');this.updateDamage(this.player,s.state==='menu'?0:s.damage??0);this.updateRocketBoost(s);
+  const own=ringPoint(0,s.player);this.player.position=V(own.x,own.y,own.z);this.player.rotation=V(0,Math.max(-.3,Math.min(.3,-(s.slip||0)*.65)),-RING_BANK);this.player.setEnabled(s.invulnerable<=0||Math.floor(s.invulnerable*12)%2===0||s.state==='menu');this.updateDamage(this.player,s.state==='menu'?0:s.damage??0);this.updateRocketBoost(s);
   const alive=new Set();for(const o of s.cars){if(Math.abs(o.z)>650)continue;alive.add(o.key);let root=this.vehicles.get(o.key);if(!root){root=new B.TransformNode(o.id,this.scene);root.metadata={model:o.id};this.vehicles.set(o.key,root)}if(!root.getChildMeshes().some(n=>n.name==='car photograph'))this.makeLamborghini(root,s,o.id,o.paint);const pose=ringPoint(o.z,o.x);root.position=V(pose.x,pose.y,pose.z);root.rotation=V(0,pose.angle,-RING_BANK);this.updateDamage(root,o.damage??0);window.NightDriveEffects?.updateRollingTyres(root,s.distance+o.z,s.state==='running')}
   for(const [key,root]of this.vehicles)if(!alive.has(key)){root.dispose(false,true);this.vehicles.delete(key)}window.NightDriveEffects?.updateRollingTyres(this.player,s.distance,s.state==='running');
-  const behind=ringPoint(-(specs[s.id].l/2+4.1),s.player),ahead=ringPoint(7,s.player);this.camera.position=V(behind.x,behind.y+2.35,behind.z);this.camera.setTarget(V(ahead.x,ahead.y+.25,ahead.z));this.scene.render();this.original.style.visibility='hidden';
+  this.updateDriftSmoke(s);
+ const behind=ringPoint(-(specs[s.id].l/2+4.1),s.player),ahead=ringPoint(7,s.player);this.camera.position=V(behind.x,behind.y+2.35,behind.z);this.camera.setTarget(V(ahead.x,ahead.y+.25,ahead.z));this.scene.render();this.original.style.visibility='hidden';
+ }
+ updateDriftSmoke(s){
+  if(!this.driftSmoke&&s.drifting>.18){
+   const tex=new B.DynamicTexture('soft tyre smoke',{width:64,height:64},this.scene,false),c=tex.getContext(),g=c.createRadialGradient(32,32,1,32,32,32);g.addColorStop(0,'#d8dce39c');g.addColorStop(.45,'#c9cdd45e');g.addColorStop(1,'#c9cdd400');c.fillStyle=g;c.fillRect(0,0,64,64);tex.update();tex.hasAlpha=true;
+   const mat=new B.StandardMaterial('tyre smoke',this.scene);mat.diffuseTexture=tex;mat.emissiveColor=C('#aab4c1');mat.disableLighting=true;mat.useAlphaFromDiffuseTexture=true;mat.backFaceCulling=false;mat.disableDepthWrite=true;
+   this.driftSmoke=Array.from({length:20},()=>{const mesh=B.MeshBuilder.CreatePlane('drift tyre smoke',{size:1},this.scene);mesh.billboardMode=B.Mesh.BILLBOARDMODE_ALL;mesh.material=mat;mesh.isPickable=false;mesh.setEnabled(false);return{mesh,age:2,arc:0,x:0}});this.smokeClock=s.elapsed;this.smokeNext=0;
+  }
+  if(!this.driftSmoke)return;const dt=Math.max(0,Math.min(.1,s.elapsed-(this.smokeClock??s.elapsed)));this.smokeClock=s.elapsed;
+  if(s.state!=='running'){for(const p of this.driftSmoke){p.age=2;p.mesh.setEnabled(false)}return}
+  if(s.drifting>.18&&s.speed>100&&s.elapsed>this.smokeNext){this.smokeNext=s.elapsed+.09;for(const sign of [-1,1]){const p=this.driftSmoke.find(p=>p.age>=1.25);if(p){p.age=0;p.arc=s.distance-specs[s.id].l/2-.2;p.x=s.player+sign*specs[s.id].w*.4}}}
+  for(const p of this.driftSmoke){p.age+=dt;const active=p.age<1.25&&Math.abs(p.arc-s.distance)<70;p.mesh.setEnabled(active);if(!active)continue;const z=p.arc-s.distance,pose=s.track==='ring'?ringPoint(z,p.x):{x:this.center(p.arc,s)+p.x,y:0,z};p.mesh.position=V(pose.x,pose.y+.22+p.age*.5,pose.z);p.mesh.scaling=V(.3+p.age*1.35,.3+p.age*1.35,1);p.mesh.visibility=(1-p.age/1.25)*.7}
  }
  updateRocketBoost(s){
   if(s.id!=='teslarocket')return;
