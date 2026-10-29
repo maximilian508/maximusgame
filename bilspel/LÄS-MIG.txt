@@ -72,3 +72,6 @@ Märkesval: välkomsttexten är borttagen. Märkesknapparna ligger ovanpå varan
 Märkesknapparna fyller bilhallen som stora kort bredvid varandra. När raden är full fortsätter nästa rad; ungefär två rader på en vanlig datorskärm.
 
 Märkesloggor med färg: Lamborghini, Porsche, Ferrari, BMW, Toyota, Honda, Volvo, McLaren, Bugatti och Tesla har färgade logotyper. Märkesrutnätet är oförändrat.
+
+HIGH SPEED RING: sluten rund 2 km-bana, 20 graders dosering inåt, tre varv mot fem botar. Tre tävlingar: Club (210–230 km/h), Supercar (350–370) och Hyper (550–570). Botar kan byta fil för omkörning. Ingen vanlig trafik på ringen.
+Bankartan visar spelaren och botarna runt ringen. Varvräknaren finns i racepanelen. Välj Välj tävling → High Speed Ring för att köra banan.

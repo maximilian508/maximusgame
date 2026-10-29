@@ -75,6 +75,8 @@ function drawVehicleDamage(c,sprite,hits){const w=c.canvas.width,h=c.canvas.heig
  if(hits>=5){c.strokeStyle='#080c13';c.lineWidth=4;c.beginPath();c.moveTo(100,365);c.lineTo(145,384);c.lineTo(180,372);c.lineTo(212,400);c.stroke();c.strokeStyle='#ccd3d699';c.lineWidth=1.4;c.stroke()}
  c.restore();c.globalCompositeOperation='destination-in';c.drawImage(sprite,0,0,w,h);c.globalCompositeOperation='source-over';
 }
+const RING_LENGTH=2000,RING_RADIUS=RING_LENGTH/(2*Math.PI),RING_BANK=20*Math.PI/180,RING_BASE=10*Math.tan(RING_BANK)+.25;
+function ringPoint(arc,lateral=0){const angle=arc/RING_RADIUS;return {x:RING_RADIUS-(RING_RADIUS-lateral)*Math.cos(angle),y:RING_BASE-lateral*Math.tan(RING_BANK),z:(RING_RADIUS-lateral)*Math.sin(angle),angle}}
 class Race{
  constructor(original){this.original=original;this.canvas=document.createElement('canvas');this.canvas.id='babylonCanvas';this.canvas.style.cssText='position:absolute;inset:0;width:100%;height:100%;pointer-events:none';original.after(this.canvas);this.engine=new B.Engine(this.canvas,true,{preserveDrawingBuffer:true,stencil:true});this.scene=new B.Scene(this.engine);this.lights=lighting(this.scene);this.scene.fogMode=B.Scene.FOGMODE_EXP2;this.scene.fogDensity=.004;this.camera=new B.FreeCamera('chase camera',V(0,3.3,-8.7),this.scene);this.camera.minZ=.15;this.camera.maxZ=900;this.camera.fov=.82;
  this.shadow=new B.ShadowGenerator(1024,this.lights.sun);this.shadow.usePercentageCloserFiltering=true;this.shadow.filteringQuality=B.ShadowGenerator.QUALITY_LOW;
@@ -96,6 +98,7 @@ class Race{
  this.tunnelLights=Array.from({length:3},(_,i)=>{const light=new B.PointLight('tunnel light pool '+i,V(0,4.6,i*18),this.scene);light.diffuse=C('#fff0d1');light.range=24;light.intensity=16;return light});
  this.headlight=new B.SpotLight('driver headlights',V(0,.65,2),V(0,-.045,1),Math.PI/2.7,3,this.scene);this.headlight.diffuse=C('#dceeff');this.headlight.intensity=30;this.headlight.range=70;
 
+ this.ringDecor=new B.TransformNode('ring circuit details',this.scene);this.ringDecor.setEnabled(false);this.ringStart=box(this.scene,this.ringDecor,'start finish stripe',[20,.035,1.3],[0,0,0],this.materials.line);
  this.scenery=[];this.vehicles=new Map();this.player=null;this.ready=true;this.lastKind=null;this.size='';this.glow=new B.GlowLayer('subtle lights',this.scene,{blurKernelSize:16});this.glow.intensity=.20;
  }
  center(m,s){return (s.routeBend(Math.max(0,m))-s.routeBend(s.distance))*48}
@@ -103,15 +106,16 @@ class Race{
  for(const x of this.scenery)x.dispose(false,true);this.scenery=[];
  const stone=material(this.scene,'mountain stone',s.kind==='desert'?'#88604c':'#54616b',0,.96),bark=material(this.scene,'tree bark','#413c31',0,1),leaf=material(this.scene,'pine canopy','#233f34',0,1),building=material(this.scene,'city architecture','#24303d',.25,.65),windows=material(this.scene,'lit windows','#f7cd8d',0,.8);windows.emissiveColor=C('#d6a45e').scale(.6);
  if(indoor)return;
- for(let i=0;i<64;i++){const root=new B.TransformNode('landmark '+i,this.scene),side=i%2?-1:1;root.metadata={side,offset:18+(i*17%70),index:i};
+ for(let i=0;i<(s.kind==='speedway'?0:64);i++){const root=new B.TransformNode('landmark '+i,this.scene),side=i%2?-1:1;root.metadata={side,offset:18+(i*17%70),index:i};
  if(s.kind==='city'){const h=10+i*13%55;box(this.scene,root,'building',[8+i%5,h,8],[0,h/2,0],building);for(let j=0;j<6;j++)for(let k=0;k<3;k++)if((i+j+k)%3)box(this.scene,root,'window',[.6,1,.025],[-2+k*2,3+j*4,-4.02],windows)}
  else if(s.kind==='mountain'||s.kind==='forest'){box(this.scene,root,'trunk',[.38,5,.38],[0,2.5,0],bark);for(let j=0;j<3;j++){const crown=B.MeshBuilder.CreateCylinder('pine',{diameterTop:0,diameterBottom:4.8-j*.8,height:5,tessellation:12},this.scene);crown.position.y=4+j*1.8;crown.parent=root;crown.material=leaf}}
  else{const rock=B.MeshBuilder.CreateSphere('rock ridge',{diameter:1,segments:10},this.scene);rock.scaling=V(8+i%8,5+i%15,9+i%11);rock.position.y=rock.scaling.y*.27;rock.parent=root;rock.material=stone}
  this.scenery.push(root)}
  }
  render(s){const size=this.canvas.clientWidth+'x'+this.canvas.clientHeight;if(size!==this.size){this.engine.resize();this.size=size}if(this.lastKind!==s.kind){this.theme(s);this.lastKind=s.kind}
+ this.ringDecor.setEnabled(s.track==='ring');if(s.track==='ring'){this.renderRing(s);return}
  const path=[[],[]];for(let i=0;i<=120;i++){const z=i*5-15,m=s.distance+z,c=this.center(m,s),half=s.roadLanes(m)*10/3;path[0].push(V(c-half,0,z));path[1].push(V(c+half,0,z))}B.MeshBuilder.CreateRibbon('continuous asphalt',{pathArray:path,instance:this.road});
- for(let i=0;i<this.chunks.length;i++){const t=this.chunks[i],z=i*5-15-(s.distance%5),m=s.distance+z,half=s.roadLanes(m)*10/3,c=this.center(m,s),slope=(this.center(m+1,s)-this.center(m-1,s))/2;t.node.position=V(c,0,z);t.node.rotation.y=Math.atan(slope);const enclosed=s.enclosedAt(m),cutZ=-(specs[s.id]?.l/2||2.5)+.12,visibleTunnel=enclosed&&z+2.53>cutZ;
+ for(let i=0;i<this.chunks.length;i++){const t=this.chunks[i],z=i*5-15-(s.distance%5),m=s.distance+z,half=s.roadLanes(m)*10/3,c=this.center(m,s),slope=(this.center(m+1,s)-this.center(m-1,s))/2;t.node.position=V(c,0,z);t.node.rotation=V(0,Math.atan(slope),0);t.node.scaling=V(1,1,1);const enclosed=s.enclosedAt(m),cutZ=-(specs[s.id]?.l/2||2.5)+.12,visibleTunnel=enclosed&&z+2.53>cutZ;
  for(let side=0;side<2;side++){const sign=side?-1:1;t.lines[side].position.x=sign*(half-.14);t.rails[side].position.x=sign*(half+.42);const count=Math.round(s.roadLanes(m));t.dash[side].setEnabled(count>1&&(count===3||side===0));t.dash[side].position.x=count===2?0:sign*half/3;t.rails[side].setEnabled(!enclosed);
  const near=Math.max(z-2.53,cutZ),far=z+2.53,nearM=s.distance+near,farM=s.distance+far,ax=this.center(nearM,s)+sign*(s.roadLanes(nearM)*10/3+.70),bx=this.center(farM,s)+sign*(s.roadLanes(farM)*10/3+.70),length=Math.hypot(bx-ax,far-near),yaw=Math.atan2(bx-ax,far-near);
  for(const obj of [t.panels[side],t.guides[side]]){obj.setEnabled(visibleTunnel);obj.position.x=(ax+bx)/2;obj.position.z=(near+far)/2;obj.scaling.z=length/5;obj.rotation.y=yaw}t.fixtures[side].setEnabled(visibleTunnel&&z>=cutZ&&Math.floor(m/5)%3===0);t.fixtures[side].position=V(c+sign*(half+.75)*.38,4.85,z);t.fixtures[side].rotation.y=Math.atan(slope)}
@@ -127,7 +131,7 @@ class Race{
  this.updateRocketBoost(s);
  for(const w of this.player.metadata.wheels||[])w.rotation.x=s.distance/.335;this.updateDamage(this.player,s.state==='menu'?0:s.damage??0);
  const alive=new Set();for(const o of s.cars){if(o.z< -18||o.z>430)continue;alive.add(o.key);let r=this.vehicles.get(o.key);if(!r){r=new B.TransformNode(o.id,this.scene);r.metadata={model:o.id};this.makeLamborghini(r,s,o.id,o.paint);this.vehicles.set(o.key,r);r.getChildMeshes().forEach(x=>this.shadow.addShadowCaster(x));if(o.rival){const tex=new B.DynamicTexture('rival health',{width:256,height:64},this.scene,false),mat=new B.StandardMaterial('health',this.scene);mat.diffuseTexture=tex;mat.emissiveColor=B.Color3.White();mat.diffuseTexture.hasAlpha=true;mat.useAlphaFromDiffuseTexture=true;mat.disableLighting=true;const sign=B.MeshBuilder.CreatePlane('rival hearts',{width:2,height:.5},this.scene);sign.position.y=1.9;sign.parent=r;sign.billboardMode=B.Mesh.BILLBOARDMODE_ALL;sign.material=mat;r.metadata.healthTexture=tex}}
- if(!r.getChildMeshes().some(n=>n.name==='car photograph'))this.makeLamborghini(r,s,o.id,o.paint);this.updateDamage(r,o.damage??0);r.position=V(this.center(s.distance+o.z,s)+o.x,0,o.z);r.rotation.y=Math.atan((this.center(s.distance+o.z+1,s)-this.center(s.distance+o.z-1,s))/2);for(const w of r.metadata.wheels||[])w.rotation.x=(s.distance+o.z)/.335;const statusKey=(s.clean?'lives:'+o.health:'damage:'+(o.damage??0));if(r.metadata.healthTexture&&r.metadata.statusKey!==statusKey){const t=r.metadata.healthTexture,c=t.getContext();c.clearRect(0,0,256,64);c.fillStyle='#e5f2ff';c.font='bold 38px Arial';c.textAlign='center';c.fillText(s.clean?'♥'.repeat(o.health):'SKADA '+Math.min(100,(o.damage??0)*8)+' %',128,45);t.update();r.metadata.statusKey=statusKey}}
+ if(!r.getChildMeshes().some(n=>n.name==='car photograph'))this.makeLamborghini(r,s,o.id,o.paint);this.updateDamage(r,o.damage??0);r.position=V(this.center(s.distance+o.z,s)+o.x,0,o.z);r.rotation.z=0;r.rotation.y=Math.atan((this.center(s.distance+o.z+1,s)-this.center(s.distance+o.z-1,s))/2);for(const w of r.metadata.wheels||[])w.rotation.x=(s.distance+o.z)/.335;const statusKey=(s.clean?'lives:'+o.health:'damage:'+(o.damage??0));if(r.metadata.healthTexture&&r.metadata.statusKey!==statusKey){const t=r.metadata.healthTexture,c=t.getContext();c.clearRect(0,0,256,64);c.fillStyle='#e5f2ff';c.font='bold 38px Arial';c.textAlign='center';c.fillText(s.clean?'♥'.repeat(o.health):'SKADA '+Math.min(100,(o.damage??0)*8)+' %',128,45);t.update();r.metadata.statusKey=statusKey}}
  for(const [key,r]of this.vehicles)if(!alive.has(key)){r.dispose(false,true);this.vehicles.delete(key)}
  if(!this.player.getChildMeshes().some(n=>n.name==='car photograph'))this.makeLamborghini(this.player,s,s.id,s.paint);
  window.NightDriveEffects?.updateRollingTyres(this.player,s.distance,s.state==='running');for(const o of s.cars){const root=this.vehicles.get(o.key);if(root)window.NightDriveEffects?.updateRollingTyres(root,s.distance+o.z,s.state==='running')}
@@ -135,6 +139,24 @@ class Race{
  }
  makeLamborghini(root,s,id,paint){const sprite=s.photoView(id,paint,1);if(!sprite)return;const tex=new B.DynamicTexture('car image '+id,{width:sprite.width,height:sprite.height},this.scene,false);tex.getContext().drawImage(sprite,0,0);tex.update();root.metadata.imageTexture=tex;root.metadata.imageSource=sprite;root.metadata.damageDrawn=0;tex.hasAlpha=true;const mat=new B.StandardMaterial('car photograph '+id,this.scene);mat.diffuseTexture=tex;mat.emissiveColor=B.Color3.White();mat.disableLighting=true;mat.useAlphaFromDiffuseTexture=true;mat.backFaceCulling=false;const w=specs[id].w,h=w*sprite.height/sprite.width;const plane=B.MeshBuilder.CreatePlane('car photograph',{width:w,height:h},this.scene);plane.parent=root;plane.position=V(0,h/2+.06,-specs[id].l/2);plane.rotation.y=Math.PI;plane.material=mat;window.NightDriveEffects?.attachRollingTyres(root,sprite,plane,B);
  const shadowTex=new B.DynamicTexture('soft tyre shadow',{width:64,height:64},this.scene,false),c=shadowTex.getContext(),g=c.createRadialGradient(32,32,1,32,32,32);g.addColorStop(0,'#000a');g.addColorStop(1,'#0000');c.fillStyle=g;c.fillRect(0,0,64,64);shadowTex.update();shadowTex.hasAlpha=true;const shadowMat=new B.StandardMaterial('contact shadow',this.scene);shadowMat.diffuseTexture=shadowTex;shadowMat.useAlphaFromDiffuseTexture=true;shadowMat.disableLighting=true;shadowMat.emissiveColor=B.Color3.White();const ground=B.MeshBuilder.CreateGround('contact shadow',{width:w*1.4,height:specs[id].l*1.15},this.scene);ground.position.y=.015;ground.parent=root;ground.material=shadowMat;
+ }
+ renderRing(s){
+  this.scene.fogDensity=.00085;this.ground.position.y=-.07;
+  const path=[[],[]];for(let i=0;i<=120;i++){for(let side=0;side<2;side++){const p=ringPoint(i/120*RING_LENGTH,side?10:-10);path[side].push(V(p.x,p.y,p.z))}}
+  B.MeshBuilder.CreateRibbon('continuous asphalt',{pathArray:path,instance:this.road});
+  for(let i=0;i<this.chunks.length;i++){
+   const t=this.chunks[i],arc=i/this.chunks.length*RING_LENGTH-s.distance,p=ringPoint(arc),segment=RING_LENGTH/this.chunks.length;
+   t.node.position=V(p.x,p.y,p.z);t.node.rotation=V(0,p.angle,-RING_BANK);t.node.scaling=V(1/Math.cos(RING_BANK),1,(segment+.15)/5);
+   for(let side=0;side<2;side++){const sign=side?-1:1;t.lines[side].position.x=sign*9.86;t.rails[side].position.x=sign*10.42;t.dash[side].position.x=sign*10/3;t.dash[side].setEnabled(true);t.rails[side].setEnabled(true);for(const obj of [t.panels[side],t.guides[side],t.fixtures[side]])obj.setEnabled(false)}t.roof.setEnabled(false);t.rib.setEnabled(false);
+  }
+  const stripe=ringPoint(-s.distance);this.ringStart.position=V(stripe.x,stripe.y+.045,stripe.z);this.ringStart.rotation=V(0,stripe.angle,-RING_BANK);this.ringStart.scaling.x=1/Math.cos(RING_BANK);
+  this.tunnelLights.forEach(l=>l.setEnabled(false));this.headlight.setEnabled(false);
+  const playerKey=s.id+s.paint;if(this.playerKey!==playerKey){if(this.player)this.player.dispose(false,true);this.player=new B.TransformNode(s.id,this.scene);this.player.metadata={model:s.id};this.playerKey=playerKey}
+  if(!this.player.getChildMeshes().some(n=>n.name==='car photograph'))this.makeLamborghini(this.player,s,s.id,s.paint);
+  const own=ringPoint(0,s.player);this.player.position=V(own.x,own.y,own.z);this.player.rotation=V(0,0,-RING_BANK);this.player.setEnabled(s.invulnerable<=0||Math.floor(s.invulnerable*12)%2===0||s.state==='menu');this.updateDamage(this.player,s.state==='menu'?0:s.damage??0);this.updateRocketBoost(s);
+  const alive=new Set();for(const o of s.cars){if(Math.abs(o.z)>650)continue;alive.add(o.key);let root=this.vehicles.get(o.key);if(!root){root=new B.TransformNode(o.id,this.scene);root.metadata={model:o.id};this.vehicles.set(o.key,root)}if(!root.getChildMeshes().some(n=>n.name==='car photograph'))this.makeLamborghini(root,s,o.id,o.paint);const pose=ringPoint(o.z,o.x);root.position=V(pose.x,pose.y,pose.z);root.rotation=V(0,pose.angle,-RING_BANK);this.updateDamage(root,o.damage??0);window.NightDriveEffects?.updateRollingTyres(root,s.distance+o.z,s.state==='running')}
+  for(const [key,root]of this.vehicles)if(!alive.has(key)){root.dispose(false,true);this.vehicles.delete(key)}window.NightDriveEffects?.updateRollingTyres(this.player,s.distance,s.state==='running');
+  const behind=ringPoint(-(specs[s.id].l/2+4.1),s.player),ahead=ringPoint(7,s.player);this.camera.position=V(behind.x,behind.y+2.35,behind.z);this.camera.setTarget(V(ahead.x,ahead.y+.25,ahead.z));this.scene.render();this.original.style.visibility='hidden';
  }
  updateRocketBoost(s){
   if(s.id!=='teslarocket')return;
@@ -153,5 +175,5 @@ class Race{
  exportScene(){const nodes=this.scene.transformNodes,saved=nodes.map(n=>n.metadata);nodes.forEach(n=>{if(n.metadata?.model)n.metadata={model:n.metadata.model,dimensions:n.metadata.dimensions}});try{return B.SceneSerializer.Serialize(this.scene)}finally{nodes.forEach((n,i)=>n.metadata=saved[i])}}
  dispose(){this.ready=false;this.engine.dispose();this.canvas.remove();this.original.style.visibility='visible'}
 }
-window.NightDrive3D={Race,showroom,specs,car,chaseCameraPose,tunnelProfile,drawVehicleDamage};
+window.NightDrive3D={Race,showroom,specs,car,chaseCameraPose,tunnelProfile,drawVehicleDamage,ringPoint,RING_LENGTH,RING_RADIUS,RING_BANK};
 })();
