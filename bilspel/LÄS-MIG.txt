@@ -66,3 +66,4 @@ McLaren: 720S, P1 och Senna. Bugatti: Chiron, Veyron 16.4 och Bolide. Totalt 39 
 Tesla: Roadster från 2008 och en fiktiv Roadster Rocket från samma generation. Rocket är en specialversion för spelet med dubbla raketmunstycken och extra kraftig TURBO. Totalt 41 bilar och 12 märken. Priser och prestanda är spelvärden. AI-genererade bilbilder.
 Rocket-versionen accelererar 0–100 km/h på 0,1 sekunder i spelet, även utan TURBO. TURBO ger sedan ytterligare fart och visar raketstrålar. Den vanliga Roadsterns acceleration är oförändrad.
 Tesla-farter enligt önskemål: vanliga Roadster 350 km/h, 550 med TURBO. Rocket 500 km/h, 700 med TURBO.
+Tesla-priser: Roadster 7 000 dollar, Roadster Rocket 10 000 dollar.
