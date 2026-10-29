@@ -7,3 +7,5 @@ The All grid icon was created for this game.
 Volvo: https://github.com/simple-icons/simple-icons/blob/develop/icons/volvo.svg
 
 McLaren, Bugatti: Simple Icons, https://github.com/simple-icons/simple-icons/tree/develop/icons
+
+Tesla: Simple Icons, https://github.com/simple-icons/simple-icons/blob/develop/icons/tesla.svg
