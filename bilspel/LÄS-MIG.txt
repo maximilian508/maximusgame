@@ -46,3 +46,5 @@ Uppdatering 29 oktober: bonuskod 1234; minst en fil på alla banor; bilen begrä
 Botar håller höger på enfiliga partier. Bilen följer vägen utan styrning. Att styra mot vägkanten ger vanlig krockskada med befintlig skyddstid efter krock.
 
 Tunneluppdatering: lägre följkamera bakom bilen, kameran hålls centrerad bakom bilen och väggar bakom bilen döljs för fri sikt, välvda sammanhängande tak, betongstruktur, kakel, expansionsskarvar, ledljus och strålkastarljus.
+
+Skadeuppdatering: i vanliga lopp finns ingen utslagning efter tre krockar. Varje krock ger mer repor, bucklor, smuts och glassprickor. Från femte krocken är toppfarten 10 procent lägre, därefter ytterligare 2,5 procentenheter per krock till högst 25 procent. Nytt lopp återställer bilen. Clean Racing avbryts fortfarande vid första krocken. Samma skade- och fartregler gäller rivalerna i vanliga lopp.
