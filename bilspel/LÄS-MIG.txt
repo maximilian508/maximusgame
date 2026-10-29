@@ -67,3 +67,5 @@ Tesla: Roadster från 2008 och en fiktiv Roadster Rocket från samma generation.
 Rocket-versionen accelererar 0–100 km/h på 0,1 sekunder i spelet, även utan TURBO. TURBO ger sedan ytterligare fart och visar raketstrålar. Den vanliga Roadsterns acceleration är oförändrad.
 Tesla-farter enligt önskemål: vanliga Roadster 350 km/h, 550 med TURBO. Rocket 500 km/h, 700 med TURBO.
 Tesla-priser: Roadster 7 000 dollar, Roadster Rocket 10 000 dollar.
+
+Märkesval: välkomsttexten är borttagen. Märkesknapparna ligger ovanpå varandra i en lodrät rullningslista, med dubbel bredd och 50 procent högre kort. Välj ett märke för att se bilarna; Tillbaka öppnar märkeslistan.
