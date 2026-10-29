@@ -400,14 +400,14 @@ function playerRoadBounds(){
 }
 let driftVelocity=0,driftAmount=0,driverHeading=0;
 function driftStep(velocity,speed,steer,brake,boost,curvature,dt,handling){
- const intentional=speed>115&&Math.abs(steer)>.05&&(brake||boost||speed>260),grip=Math.max(.75,Math.min(1.25,handling/1.9));
- const excess=Math.max(0,(speed-220)/240),outward=-curvature*Math.min(.85,Math.pow(excess,1.3)*.5)/grip;
- const force=outward+(intentional?steer*Math.min(.85,speed/400)*(brake?1.1:.7):0),drag=speed<100?7:intentional?1.1:2.3,decay=Math.exp(-drag*dt);
- const next=Math.max(-.48,Math.min(.48,velocity*decay+force/drag*(1-decay)));
+ const intentional=speed>145&&Math.abs(steer)>.05&&(brake||(boost&&speed>420)),grip=Math.max(.75,Math.min(1.25,handling/1.9));
+ const excess=Math.max(0,(speed-320)/320),outward=-curvature*Math.min(.45,Math.pow(excess,1.3)*.25)/grip;
+ const force=outward+(intentional?steer*Math.min(.85,speed/400)*(brake?.75:.45):0),drag=speed<100?7:intentional?1.8:3.4,decay=Math.exp(-drag*dt);
+ const next=Math.max(-.32,Math.min(.32,velocity*decay+force/drag*(1-decay)));
  return {velocity:next,amount:speed>100?Math.min(1,Math.abs(next)/.25):0};
 }
 function roadHeadingAt(m){const near=Math.max(0,m-2),far=m+2;return Math.atan((routeBend(far)-routeBend(near))*48/(far-near))}
-function steeringHeading(heading,steer,speed,handling,dt,roadTurn){const rate=(.65+handling*.35)*Math.min(1,speed/65);return Math.max(-.6,Math.min(.6,heading+steer*rate*dt-roadTurn))}
+function steeringHeading(heading,steer,speed,handling,dt,roadTurn){const rate=(.65+handling*.35)*Math.min(1,speed/65)/(1+Math.max(0,speed-240)/1000);return Math.max(-.4,Math.min(.4,heading+steer*rate*dt-roadTurn))}
 // The car keeps its own heading. Only player input turns it through the bend.
 function movePlayerOnRoad(steer,dt,previousBounds,previousDistance=distance-speed/3.6*dt){
  const bounds=playerRoadBounds(),travel=Math.max(0,distance-previousDistance),onRing=track==='ring';
@@ -416,9 +416,12 @@ function movePlayerOnRoad(steer,dt,previousBounds,previousDistance=distance-spee
  const heading=(oldHeading+driverHeading)/2+(onRing?0:(before+after)/2),roadShift=onRing?0:(routeBend(distance)-routeBend(previousDistance))*4.8;
  const curvature=onRing?1:Math.max(-1,Math.min(1,(routeBend(distance+35)-routeBend(distance-5))*3));
  const slide=driftStep(driftVelocity,speed,steer,keys.brake,keys.boost&&fuel>1,curvature,dt,chosen.handling);driftVelocity=slide.velocity;driftAmount=slide.amount;
- const intended=player+Math.sin(heading)*travel/10-roadShift+driftVelocity*dt;
+ const highSpeedControl=1/(1+Math.max(0,speed-240)/240);
+ const lateralSpeed=dt>0?(Math.sin(heading)*travel/10-roadShift)*highSpeedControl/dt:0;
+ const gentleLateral=Math.max(-.5,Math.min(.5,lateralSpeed));
+ const intended=player+(gentleLateral+driftVelocity)*dt;
  player=Math.max(bounds.left,Math.min(bounds.right,intended));
- if(intended<bounds.left-1e-8||intended>bounds.right+1e-8){hit();driftVelocity*=.25;speed=Math.min(speed,65)}
+ if(intended<bounds.left-1e-8||intended>bounds.right+1e-8){hit();driftVelocity*=.25;if(speed>65)speed=Math.max(65,speed*Math.exp(-dt*2.4))}
 }
 function accelerateCar(current,target,dt,car,brake,gas){
  let remaining=dt;
