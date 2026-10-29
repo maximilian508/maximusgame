@@ -70,3 +70,5 @@ Tesla-priser: Roadster 7 000 dollar, Roadster Rocket 10 000 dollar.
 
 Märkesval: välkomsttexten är borttagen. Märkesknapparna ligger ovanpå varandra i en lodrät rullningslista, med dubbel bredd och 50 procent högre kort. Välj ett märke för att se bilarna; Tillbaka öppnar märkeslistan.
 Märkesknapparna fyller bilhallen som stora kort bredvid varandra. När raden är full fortsätter nästa rad; ungefär två rader på en vanlig datorskärm.
+
+Märkesloggor med färg: Lamborghini, Porsche, Ferrari, BMW, Toyota, Honda, Volvo, McLaren, Bugatti och Tesla har färgade logotyper. Märkesrutnätet är oförändrat.
