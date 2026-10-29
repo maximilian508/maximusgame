@@ -1,0 +1,9 @@
+McLaren and Bugatti expansion · 29 October 2026
+
+AI-generated photographic game sprites, not manufacturer photographs or full 3D vehicle models.
+Each atlas includes a front three-quarter view for the dealership and a direct rear view for the racing game.
+McLaren: 720S (orange), P1 (yellow), Senna (blue).
+Bugatti: Chiron (blue/black), Veyron 16.4 (red/black), Bolide (blue/carbon).
+Original generated PNGs are retained in the local generated_images library. WebP atlases are bundled here for the website.
+Prices, top speed, boost and handling in the game are arcade balancing values.
+Brand icons: Simple Icons, CC0 collection. Trademarks remain with their owners; this game has no affiliation with the manufacturers.

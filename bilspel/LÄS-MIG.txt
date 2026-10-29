@@ -60,3 +60,5 @@ Större bilbilder: den nedre modellraden har nu ungefär dubbelt så breda kort 
 Märkesvalet ligger längst ner i bilhallen. När ett märke väljs döljs loggorna och märkets stora bilbilder visas. Knappen ← Tillbaka uppe till vänster återgår till märkesvalet.
 
 Volvo tillagt: EX90 Twin Motor, XC90 T8 och 850 R. Totalt 33 modeller och 9 märken. Priser, toppfart, väghållning och boost i bilhallen är spelvärden. Nya bilbilder är AI-genererade.
+
+McLaren: 720S, P1 och Senna. Bugatti: Chiron, Veyron 16.4 och Bolide. Totalt 39 modeller och 11 märken. Bilbilderna är AI-genererade. Priser och prestanda är spelvärden.

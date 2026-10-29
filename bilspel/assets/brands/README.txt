@@ -5,3 +5,5 @@ Brands: Lamborghini, Porsche, Ferrari, BMW, Mazda, Toyota, Nissan, Honda.
 The All grid icon was created for this game.
 
 Volvo: https://github.com/simple-icons/simple-icons/blob/develop/icons/volvo.svg
+
+McLaren, Bugatti: Simple Icons, https://github.com/simple-icons/simple-icons/tree/develop/icons
