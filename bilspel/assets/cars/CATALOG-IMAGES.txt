@@ -1,0 +1,30 @@
+CATALOG EXPANSION — 20 new vehicle images, 29 October 2026
+
+Created with the built-in ImageGen tool. Each named model has its own generated front-three-quarter and direct-rear views. Images are illustrative AI renders, not manufacturer photography, CAD models or affiliation. The original Veneno image is unchanged.
+
+Common prompt:
+Use case: product-mockup. Asset type: a transparent paired-view vehicle sprite atlas for a photorealistic driving game. Subject: [subject below]. Exactly TWO views of this SAME exact stock model and paint, side by side, fully separate with a clear generous transparent vertical gutter. LEFT: large full front three-quarter view with nose towards lower left, camera at wheel height. RIGHT: perfectly straight symmetrical DIRECT REAR view, camera about 80cm high, see rear body and a little roof; no side perspective. Both complete cars fully inside the image including mirrors, wing and all wheels, no clipping. Landscape canvas, true alpha transparent background, no floor and no cast shadow. Authentic photographic automotive detailing: correct distinctive model proportions, panel seams, glass reflections and dark interior, metal grilles, brakes, rubber tread, factory lamps and tail lights. Soft neutral daylight, realistic restrained paint reflections, crisp detailed photography. No text, labels, watermarks, scenery, people, toy proportions, illustration, extra cars or extra views. Make the front and rear recognizably the same specified model; do not substitute a different generation.
+
+Subjects and final files:
+huracan-catalog.webp: 2019 Lamborghini Huracán EVO coupe, Verde Mantis vivid green, factory stock rear diffuser, no large wing
+aventador-catalog.webp: 2018 Lamborghini Aventador SVJ coupe, matte orange, large factory rear wing and angular Y-shaped tail lights
+gallardo-catalog.webp: 2010 Lamborghini Gallardo LP570-4 Superleggera coupe, yellow, black carbon wing and wheels
+diablo-catalog.webp: 1995 Lamborghini Diablo SV coupe, yellow, factory rear wing, raised classic round tail lamps, black rear grille
+countach-catalog.webp: 1985 Lamborghini Countach 5000 Quattrovalvole, white, iconic wide rear haunches, rear wing and five-hole wheels
+turbo992-catalog.webp: 2020 Porsche 911 Turbo S 992 coupe, silver, factory retractable rear spoiler raised, wide rear stance
+spyder918-catalog.webp: 2015 Porsche 918 Spyder, silver with lime green brake calipers, roof on, top-exit exhaust and factory rear wing
+carreragt-catalog.webp: 2004 Porsche Carrera GT, silver, factory five-spoke centerlock wheels, rear wing deployed, roof on
+caymangt4-catalog.webp: 2016 Porsche Cayman GT4 981 coupe, yellow, factory black rear wing and sports wheels
+taycan-catalog.webp: 2020 Porsche Taycan Turbo S four-door electric sports sedan, metallic electric blue, wide rear light bar, stock factory body
+rx8-catalog.webp: 2012 Mazda RX-8 Spirit R, dark metallic gray, factory wing, correct rotary sports coupe shape and four doors
+mr2-catalog.webp: 1997 Toyota MR2 GT-S SW20 coupe, red, factory rear spoiler, pop-up headlights closed, mid-engine body
+m4-catalog.webp: 2021 BMW M4 Competition G82 coupe, Isle of Man green, correct tall double kidney grille, factory carbon roof
+m5-catalog.webp: 2018 BMW M5 F90 four-door sports sedan, dark metallic blue, factory stock subtle trunk spoiler and quad exhaust
+skyline-catalog.webp: 1999 Nissan Skyline GT-R R34 V-Spec coupe, Bayside Blue, factory tall rear wing and four round rear lights
+nismo370-catalog.webp: 2015 Nissan 370Z Nismo coupe, white with factory red Nismo trim, factory wing and black wheels
+s2000-catalog.webp: 2008 Honda S2000 Type S roadster, yellow, roof down, factory Type S rear wing
+civic-catalog.webp: 2017 Honda Civic Type R FK8 five-door sports hatchback, championship white, factory large rear wing and triple center exhaust
+f40-catalog.webp: 1987 Ferrari F40 coupe, red, iconic integrated large rear wing, five-spoke wheels and circular rear lights
+pista-catalog.webp: 2018 Ferrari 488 Pista coupe, red with blue-white central racing stripe, factory sculpted hood and rear diffuser
+
+Transparent views were cropped, packed and compressed into WebP atlases without a creative alteration. Crop rectangles and model data are in car-catalog.js and new-images.json. Arcade prices and performance are game balancing values, not manufacturer specifications.

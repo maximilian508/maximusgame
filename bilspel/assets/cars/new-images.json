@@ -168,5 +168,345 @@
         532
       ]
     ]
+  },
+  "huracan": {
+    "src": "./assets/cars/huracan-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        405
+      ],
+      [
+        992,
+        46,
+        600,
+        367
+      ]
+    ]
+  },
+  "aventador": {
+    "src": "./assets/cars/aventador-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        423
+      ],
+      [
+        992,
+        75,
+        600,
+        356
+      ]
+    ]
+  },
+  "gallardo": {
+    "src": "./assets/cars/gallardo-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        423
+      ],
+      [
+        992,
+        37,
+        600,
+        394
+      ]
+    ]
+  },
+  "countach": {
+    "src": "./assets/cars/countach-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        464
+      ],
+      [
+        992,
+        90,
+        600,
+        382
+      ]
+    ]
+  },
+  "diablo": {
+    "src": "./assets/cars/diablo-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        414
+      ],
+      [
+        992,
+        51,
+        600,
+        371
+      ]
+    ]
+  },
+  "rx8": {
+    "src": "./assets/cars/rx8-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        471
+      ],
+      [
+        992,
+        26,
+        600,
+        453
+      ]
+    ]
+  },
+  "taycan": {
+    "src": "./assets/cars/taycan-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        431
+      ],
+      [
+        992,
+        26,
+        600,
+        413
+      ]
+    ]
+  },
+  "caymangt4": {
+    "src": "./assets/cars/caymangt4-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        461
+      ],
+      [
+        992,
+        61,
+        600,
+        408
+      ]
+    ]
+  },
+  "carreragt": {
+    "src": "./assets/cars/carreragt-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        412
+      ],
+      [
+        992,
+        45,
+        600,
+        375
+      ]
+    ]
+  },
+  "spyder918": {
+    "src": "./assets/cars/spyder918-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        397
+      ],
+      [
+        992,
+        31,
+        600,
+        374
+      ]
+    ]
+  },
+  "turbo992": {
+    "src": "./assets/cars/turbo992-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        441
+      ],
+      [
+        992,
+        23,
+        600,
+        426
+      ]
+    ]
+  },
+  "m4": {
+    "src": "./assets/cars/m4-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        468
+      ],
+      [
+        992,
+        23,
+        600,
+        453
+      ]
+    ]
+  },
+  "mr2": {
+    "src": "./assets/cars/mr2-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        473
+      ],
+      [
+        992,
+        31,
+        600,
+        450
+      ]
+    ]
+  },
+  "m5": {
+    "src": "./assets/cars/m5-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        464
+      ],
+      [
+        992,
+        10,
+        600,
+        462
+      ]
+    ]
+  },
+  "skyline": {
+    "src": "./assets/cars/skyline-catalog.webp",
+    "views": [
+      [
+        16,
+        12,
+        960,
+        461
+      ],
+      [
+        992,
+        8,
+        600,
+        465
+      ]
+    ]
+  },
+  "nismo370": {
+    "src": "./assets/cars/nismo370-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        454
+      ],
+      [
+        992,
+        34,
+        600,
+        428
+      ]
+    ]
+  },
+  "civic": {
+    "src": "./assets/cars/civic-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        469
+      ],
+      [
+        992,
+        12,
+        600,
+        465
+      ]
+    ]
+  },
+  "s2000": {
+    "src": "./assets/cars/s2000-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        443
+      ],
+      [
+        992,
+        31,
+        600,
+        420
+      ]
+    ]
+  },
+  "f40": {
+    "src": "./assets/cars/f40-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        437
+      ],
+      [
+        992,
+        70,
+        600,
+        375
+      ]
+    ]
+  },
+  "pista": {
+    "src": "./assets/cars/pista-catalog.webp",
+    "views": [
+      [
+        16,
+        8,
+        960,
+        412
+      ],
+      [
+        992,
+        31,
+        600,
+        389
+      ]
+    ]
   }
 }
