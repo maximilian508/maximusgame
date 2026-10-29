@@ -50,3 +50,7 @@ Tunneluppdatering: lägre följkamera bakom bilen, kameran hålls centrerad bako
 Skadeuppdatering: i vanliga lopp finns ingen utslagning efter tre krockar. Varje krock ger mer repor, bucklor, smuts och glassprickor. Från femte krocken är toppfarten 10 procent lägre, därefter ytterligare 2,5 procentenheter per krock till högst 25 procent. Nytt lopp återställer bilen. Clean Racing avbryts fortfarande vid första krocken. Samma skade- och fartregler gäller rivalerna i vanliga lopp.
 
 Bilkatalog 29 oktober: 30 spelbara modeller totalt. Sex Lamborghini, sex Porsche och tre modeller vardera från Mazda, Toyota, BMW, Nissan, Honda och Ferrari. Använd märkesfiltret och sökfältet i bilbutiken. Varje ny modell har egen fram- och bakbild, pris och spelvärden. Gamla ägda bilar och sparningar fungerar fortfarande. Bildbriefen finns i assets/cars/CATALOG-IMAGES.txt.
+
+Hjulen visar tydligare rullande däckmönster när bilarna kör. Över 200 km/h skakar spelvyn och stödda enheter får korta vibrationspulser. Fartvibration kan stängas av i sidopanelen och stannar vid paus, fart högst 200, eller när spelfönstret tappar fokus. Fysisk vibration beror på enhetens och webbläsarens stöd.
+
+Bilbutikens märken väljs nu med loggorna: tryck på till exempel Lamborghini eller Porsche för att se märkets modeller. Alla visar hela katalogen. Märkesbyte tömmer modellsökningen. Loggorna kommer från Simple Icons.
