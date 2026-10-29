@@ -76,7 +76,7 @@ Märkesloggor med färg: Lamborghini, Porsche, Ferrari, BMW, Toyota, Honda, Volv
 HIGH SPEED RING: sluten rund 2 km-bana, 20 graders dosering inåt, tre varv mot fem botar. Tre tävlingar: Club (210–230 km/h), Supercar (350–370) och Hyper (550–570). Botar kan byta fil för omkörning. Ingen vanlig trafik på ringen.
 Bankartan visar spelaren och botarna runt ringen. Varvräknaren finns i racepanelen. Välj Välj tävling → High Speed Ring för att köra banan.
 
-Bonuskod 1234 ger nu 15 000 dollar. Koden kan fortfarande lösas in en gång per sparning.
+Bonuskod 1234 ger nu 15 000 dollar. Koden kan lösas in flera gånger och ger 15 000 dollar varje gång.
 
 Sladd: hög fart kan ge oavsiktlig sladd utåt i kurvor, särskilt på High Speed Ring. Styr och bromsa (eller använd turbo) i fart för att inleda drift. Sidomomentum finns kvar en stund när styrningen släpps. Motstyr eller sänk farten för att återfå greppet. Sladd in i räcket ger bilskada. Däckrök och SLADD-indikator visar när bilen tappar greppet.
 
