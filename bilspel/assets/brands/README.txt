@@ -3,3 +3,5 @@ The Simple Icons collection is distributed under CC0. Brand marks remain the pro
 Sources: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/[brand].svg
 Brands: Lamborghini, Porsche, Ferrari, BMW, Mazda, Toyota, Nissan, Honda.
 The All grid icon was created for this game.
+
+Volvo: https://github.com/simple-icons/simple-icons/blob/develop/icons/volvo.svg

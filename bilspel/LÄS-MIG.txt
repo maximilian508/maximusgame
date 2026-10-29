@@ -58,3 +58,5 @@ Bilbutikens märken väljs nu med loggorna: tryck på till exempel Lamborghini e
 Större bilbilder: den nedre modellraden har nu ungefär dubbelt så breda kort och mer än dubbelt så höga bilder. Dra eller rulla modellraden i sidled. Märkesknappen Alla är borttagen; när garaget öppnas visas märkesvalet.
 
 Märkesvalet ligger längst ner i bilhallen. När ett märke väljs döljs loggorna och märkets stora bilbilder visas. Knappen ← Tillbaka uppe till vänster återgår till märkesvalet.
+
+Volvo tillagt: EX90 Twin Motor, XC90 T8 och 850 R. Totalt 33 modeller och 9 märken. Priser, toppfart, väghållning och boost i bilhallen är spelvärden. Nya bilbilder är AI-genererade.
