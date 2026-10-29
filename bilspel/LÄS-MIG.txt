@@ -79,3 +79,5 @@ Bankartan visar spelaren och botarna runt ringen. Varvräknaren finns i racepane
 Bonuskod 1234 ger nu 15 000 dollar. Koden kan fortfarande lösas in en gång per sparning.
 
 Sladd: hög fart kan ge oavsiktlig sladd utåt i kurvor, särskilt på High Speed Ring. Styr och bromsa (eller använd turbo) i fart för att inleda drift. Sidomomentum finns kvar en stund när styrningen släpps. Motstyr eller sänk farten för att återfå greppet. Sladd in i räcket ger bilskada. Däckrök och SLADD-indikator visar när bilen tappar greppet.
+
+Karossfärger: omfärgning av bilbilderna sker direkt på bildpunkterna och fungerar även utan webbläsarens canvasfilter, inklusive vita och silverfärgade bilar. Färg på den valda ägda bilen sparas direkt när du trycker på färgknappen. Andra bilar förhandsvisas fram tills du väljer eller köper dem.
