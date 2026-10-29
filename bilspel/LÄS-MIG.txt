@@ -1,0 +1,48 @@
+MAX NIGHT DRIVE – Babylon.js-version, 28 oktober 2026
+
+Spela: dubbelklicka på Starta-spelet.command och öppna http://127.0.0.1:8765.
+Spelsida: https://maximilian508.github.io/maximusgame/bilspel/
+
+Nytt:
+- Nio nya AI-genererade bilbilder med fram- och bakvy, anpassade för körvyn.
+- Lamborghini Veneno använder samma bildfil som tidigare, utan ändrad lack.
+- Babylon.js 9.32.1 för vägen, perspektivet, räcken, dimma, terräng och tunnlar.
+- Åtta miljöer, varierande vägbredd och de befintliga tävlingarna/garaget.
+- Kollisioner beräknas i banans koordinater tillsammans med 3D-vyn.
+
+Bilarna i spelet är fotorealistiska tvådimensionella bilder i en 3D-miljö.
+De är inte skannade eller tillverkarverifierade 3D-modeller. Körfysiken är arkadfysik.
+De separata redigerbara 3D-bilmodellerna är enklare proportionella utkast.
+
+BABYLON.JS EDITOR
+Mappen editor-assets innehåller nio .babylon-bilmodeller och åtta .babylon-banvyer.
+1. Skapa ett projekt i editorn (Create project, t.ex. Vanilla).
+2. Klicka Import i Assets Browser och välj en .babylon-fil från editor-assets.
+3. Dra in den importerade filen i scenens förhandsvisning.
+Måtten är i meter. Om ditt editorprojekt använder centimeter, skala roten till 100.
+Dessa filer är redigerbara scenögonblicksbilder, inte ett komplett .bjseditor-projekt.
+Ändringar i dem påverkar inte automatiskt det här spelets genererade bana.
+
+Officiell importguide:
+https://editor.babylonjs.com/documentation/basics/composing-scene
+
+SPARNING
+Samma sparningsnyckel max-drive-v2 används. Webbläsare skiljer mellan lokal adress
+och GitHub-adress, så en lokal testversion visar inte automatiskt din onlinesparning.
+
+BILDBRIEF
+Skapade med det inbyggda ImageGen-verktyget. En bild per modell, två vyer på
+transparent bakgrund: främre trekvartsvy och symmetrisk direkt bakvy. Neutral
+fotografisk ljussättning; realistiska proportioner, karosspaneler, hjul, däck,
+glas, ljus och avgasrör. Inga personer, miljöer eller etiketter.
+Modeller: Mazda MX-5 ND 2015, Toyota GR86 2021, Mazda RX-7 FD Spirit R 2002,
+BMW M3 E92 2007, Nissan GT-R R35 2017, Toyota Supra A90 2020, Honda NSX Type R
+1992, Ferrari 458 Italia 2009 och Porsche 911 GT3 RS 991 2016.
+Bilderna finns i assets/cars/*-real-v2.webp, beskärningarna i new-images.json.
+Motorn är lokalt inkluderad så spelet inte behöver hämta kod från CDN.
+
+Uppdatering 29 oktober: bonuskod 1234; minst en fil på alla banor; bilen begränsas till vägkanterna med marginal för hela bilens bredd.
+
+Botar håller höger på enfiliga partier. Bilen följer vägen utan styrning. Att styra mot vägkanten ger vanlig krockskada med befintlig skyddstid efter krock.
+
+Tunneluppdatering: lägre följkamera bakom bilen, kameran hålls centrerad bakom bilen och väggar bakom bilen döljs för fri sikt, välvda sammanhängande tak, betongstruktur, kakel, expansionsskarvar, ledljus och strålkastarljus.

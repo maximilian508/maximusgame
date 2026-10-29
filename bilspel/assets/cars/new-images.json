@@ -1,0 +1,172 @@
+{
+  "starter": {
+    "src": "./assets/cars/starter-real-v2.webp",
+    "views": [
+      [
+        30,
+        153,
+        1101,
+        542
+      ],
+      [
+        1178,
+        120,
+        724,
+        563
+      ]
+    ]
+  },
+  "rally": {
+    "src": "./assets/cars/rally-real-v2.webp",
+    "views": [
+      [
+        31,
+        77,
+        1184,
+        581
+      ],
+      [
+        1347,
+        96,
+        765,
+        552
+      ]
+    ]
+  },
+  "rx7": {
+    "src": "./assets/cars/rx7-real-v2.webp",
+    "views": [
+      [
+        26,
+        134,
+        1128,
+        549
+      ],
+      [
+        1273,
+        139,
+        723,
+        510
+      ]
+    ]
+  },
+  "m3": {
+    "src": "./assets/cars/m3-real-v2.webp",
+    "views": [
+      [
+        39,
+        55,
+        1166,
+        611
+      ],
+      [
+        1376,
+        77,
+        736,
+        570
+      ]
+    ]
+  },
+  "gt": {
+    "src": "./assets/cars/gt-real-v2.webp",
+    "views": [
+      [
+        23,
+        109,
+        1208,
+        552
+      ],
+      [
+        1337,
+        105,
+        768,
+        539
+      ]
+    ]
+  },
+  "supra": {
+    "src": "./assets/cars/supra-real-v2.webp",
+    "views": [
+      [
+        27,
+        119,
+        1146,
+        574
+      ],
+      [
+        1251,
+        132,
+        700,
+        508
+      ]
+    ]
+  },
+  "nsx": {
+    "src": "./assets/cars/nsx-real-v2.webp",
+    "views": [
+      [
+        48,
+        99,
+        1205,
+        548
+      ],
+      [
+        1337,
+        97,
+        786,
+        531
+      ]
+    ]
+  },
+  "hyper": {
+    "src": "./assets/cars/hyper-views.webp",
+    "views": [
+      [
+        21,
+        154,
+        1196,
+        488
+      ],
+      [
+        1316,
+        145,
+        819,
+        465
+      ]
+    ]
+  },
+  "italia": {
+    "src": "./assets/cars/italia-real-v2.webp",
+    "views": [
+      [
+        25,
+        118,
+        1256,
+        518
+      ],
+      [
+        1355,
+        116,
+        736,
+        484
+      ]
+    ]
+  },
+  "porsche": {
+    "src": "./assets/cars/porsche-real-v2.webp",
+    "views": [
+      [
+        33,
+        111,
+        1110,
+        588
+      ],
+      [
+        1218,
+        121,
+        721,
+        532
+      ]
+    ]
+  }
+}
